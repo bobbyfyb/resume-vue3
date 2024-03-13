@@ -52,7 +52,8 @@
                             </n-icon>
                             {{ key }}
                         </div>
-                        <div>{{ value }}</div>
+                        <a v-if="key === 'github'" :href="value">{{ value }}</a>
+                        <div v-else>{{ value }}</div>
                     </div>
                 </div>
             </div>
@@ -97,8 +98,7 @@ const ContactInfoData: Ref<ContactInfoData> = ref({
     padding: 20px;
     min-width: 90vw;
     height: 80vh;
-    background: #00B4D8;
-
+    background: #FEFAE0;
     .personal-info-container {
         display: flex;
         flex-direction: column;
@@ -147,7 +147,7 @@ const ContactInfoData: Ref<ContactInfoData> = ref({
         flex-direction: column;
         justify-content: flex-start;
         align-items: flex-start;
-        background-color: #00B4D8;
+        background-color: #DDA15E;
         width: 100%;
         height: 100%;
         margin-left: 2%;
@@ -197,6 +197,15 @@ const ContactInfoData: Ref<ContactInfoData> = ref({
             flex-direction: column;
             justify-content: flex-start;
             align-items: center;
+        }
+    }
+}
+
+@media(prefers-color-scheme: dark){
+    .resume-container {
+        background: #283618;
+        .resume-info {
+            background-color: #606C38;
         }
     }
 }

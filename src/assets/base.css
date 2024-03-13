@@ -30,34 +30,38 @@
 
 /* semantic color variables for this project */
 :root {
-  /* --color-background: var(--vt-c-white);
-   */
-  --color-background: var(--vt-c-resume);
-  --color-background-soft: var(--vt-c-resume-soft);
-  --color-background-mute: var(--vt-c-resume-mute);
+  --color-background: var(--vt-c-white);
+  /* --color-background: var(--vt-c-resume); */
+  --color-background-soft: var(--vt-c-white-soft);
+  /* --color-background-soft: var(--vt-c-resume-soft); */
+  --color-background-mute: var(--vt-c-white-mute);
+  /* --color-background-mute: var(--vt-c-resume-mute); */
 
   --color-border: var(--vt-c-divider-light-2);
   --color-border-hover: var(--vt-c-divider-light-1);
 
   --color-heading: var(--vt-c-text-light-1);
-  /* --color-text: var(--vt-c-text-light-1); */
-  --color-text: var(--vt-c-resume-text-light);
+  --color-text: var(--vt-c-text-light-1);
+  /* --color-text: var(--vt-c-resume-text-light); */
 
   --section-gap: 160px;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-background: var(--vt-c-resume-night);
-    --color-background-soft: var(--vt-c-resume-soft);
-    --color-background-mute: var(--vt-c-resume-mute);
+    --color-background: var(--vt-c-black);
+    /* --color-background: var(--vt-c-resume-night); */
+    --color-background-soft: var(--vt-c-black-soft);
+    /* --color-background-soft: var(--vt-c-resume-soft); */
+    --color-background-mute: var(--vt-c-black-mute);
+    /* --color-background-mute: var(--vt-c-resume-mute); */
 
     --color-border: var(--vt-c-divider-dark-2);
     --color-border-hover: var(--vt-c-divider-dark-1);
 
     --color-heading: var(--vt-c-text-dark-1);
-    /* --color-text: var(--vt-c-text-dark-2); */
-    --color-text: var(--vt-c-resume-text-dark);
+    --color-text: var(--vt-c-text-dark-2);
+    /* --color-text: var(--vt-c-resume-text-dark); */
   }
 }
 
