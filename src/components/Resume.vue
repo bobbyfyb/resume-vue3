@@ -7,55 +7,63 @@
                 </n-icon>
             </n-avatar>
             <div class="personal-info">
-                <div
-                    class="info-item" 
-                    v-for="(value, key, index) in personalInfoData" 
-                    :key="index"
-                    >
-                    <div v-if="key === 'name'">
-                        <h1>{{ value }}</h1>
-                    </div>
-                    <div v-else>
-                        <div>
-                            <n-icon v-if="key === 'coporation'" color="#caf0f8">
-                                <building />
-                            </n-icon>
-                            <n-icon v-if="key === 'location'" color="#caf0f8">
-                                <location />
-                            </n-icon>
-                            {{ key }}
+                <n-scrollbar trigger="none">
+                    <div
+                        class="info-item" 
+                        v-for="(value, key, index) in personalInfoData" 
+                        :key="index"
+                        >
+                        <div v-if="key === 'name'">
+                            <h1>{{ value }}</h1>
                         </div>
-                        <div>{{ value }}</div>
+                        <div v-else>
+                            <div>
+                                <n-icon v-if="key === 'coporation'" color="#caf0f8">
+                                    <building />
+                                </n-icon>
+                                <n-icon v-if="key === 'location'" color="#caf0f8">
+                                    <location />
+                                </n-icon>
+                                {{ key }}
+                            </div>
+                            <div>{{ value }}</div>
+                        </div>
                     </div>
-                </div>
+                </n-scrollbar>
             </div>
             <div class="seperator"></div>
             <div class="contact-info">
-                <div
-                    class="info-item" 
-                    v-for="(value, key, index) in ContactInfoData" 
-                    :key="index"
-                    >
-                    <div>
+                <n-scrollbar trigger="none">
+                    <div
+                        class="info-item" 
+                        v-for="(value, key, index) in contactInfoData" 
+                        :key="index"
+                        >
                         <div>
-                            <n-icon v-if="key === 'email'" color="#caf0f8">
-                                <email />
-                            </n-icon>
-                            <n-icon v-if="key === 'phone'" color="#caf0f8">
-                                <phone-application />
-                            </n-icon>
-                            <n-icon v-if="key === 'linkedin'" color="#caf0f8">
-                                <logo-linkedin />
-                            </n-icon>
-                            <n-icon v-if="key === 'github'" color="#caf0f8">
-                                <logo-github />
-                            </n-icon>
-                            {{ key }}
-                        </div>
-                        <a v-if="key === 'github'" :href="value">{{ value }}</a>
-                        <div v-else>{{ value }}</div>
+                            <div>
+                                <n-icon v-if="key === 'email'">
+                                    <email />
+                                </n-icon>
+                                <n-icon v-if="key === 'phone'">
+                                    <phone-application />
+                                </n-icon>
+                                <n-icon v-if="key === 'linkedin'">
+                                    <logo-linkedin />
+                                </n-icon>
+                                <n-icon v-if="key === 'github'">
+                                    <logo-github />
+                                </n-icon>
+                                <n-icon v-if="key === 'wechat'">
+                                    <logo-wechat />
+                                </n-icon>
+                                {{ key }}
+                            </div>
+                            <a v-if="key === 'github' || key === 'linkedin' || key === 'website'" :href="value">{{ value }}</a>
+                            <a v-else-if="key === 'email'" :href="'mailto:' + value">{{ value }}</a>
+                            <div v-else>{{ value }}</div>
+                        </div>              
                     </div>
-                </div>
+                </n-scrollbar>
             </div>
         </div>
         <div class="resume-info">
@@ -67,22 +75,22 @@
 </template>
 
 <script setup lang="ts">
-import { NAvatar, NIcon} from 'naive-ui';
-import { UserAvatarFilled, Building, Location, Email, PhoneApplication, LogoLinkedin, LogoGithub } from '@vicons/carbon';
+import { NAvatar, NIcon, NScrollbar} from 'naive-ui';
+import { UserAvatarFilled, Building, Location, Email, PhoneApplication, LogoLinkedin, LogoGithub, LogoWechat } from '@vicons/carbon';
 import { ref, type Ref } from 'vue';
 import type { PersonalInfoData, ContactInfoData } from '@/types/PersonalInfoData';
+import { sampleContactInfoData, samplePersonalInfoData } from '@/example/personalInfo';
+import type { EducationInfoData, ExperienceInfoData, ResearchInfoData, ResumeInfoData } from '@/types/ResumeInfoData';
+import { sampleResumeInfoData } from '@/example/resumeInfo';
 
-const personalInfoData: Ref<PersonalInfoData> = ref({
-    name: 'Fang Yubo',
-    coporation: 'University of Tsukuba',
-    location: 'Tsukuba, Ibaraki, Japan',
-});
+const personalInfoData: Ref<PersonalInfoData> = ref(samplePersonalInfoData);
+const contactInfoData: Ref<ContactInfoData> = ref(sampleContactInfoData);
+const resumeInfoData: Ref<ResumeInfoData> = ref(sampleResumeInfoData);
 
-const ContactInfoData: Ref<ContactInfoData> = ref({
-    email: 'fyb0118@gmail.com',
-    phone: '217-555-1234',
-    github: 'https://github.com/bobbyfyb',
-    });
+const educationInfoData: Ref<EducationInfoData> = ref(resumeInfoData.value.educationInfo ?? {});
+const experienceInfoData: Ref<ExperienceInfoData> = ref(resumeInfoData.value.experienceInfo ?? {});
+const researchInfoData: Ref<ResearchInfoData> = ref(resumeInfoData.value.researchInfo ?? {});
+
 
 </script>
 
@@ -120,9 +128,11 @@ const ContactInfoData: Ref<ContactInfoData> = ref({
                 margin-bottom: 12px;
                 font-size: 16px;
                 font-family: 'PingFang-SC';
-                width: 100%;
+                width: 90%;
                 display: flex;
                 flex-wrap: wrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
                 justify-content: space-between;
             }
         .seperator {
@@ -156,9 +166,9 @@ const ContactInfoData: Ref<ContactInfoData> = ref({
             flex-direction: column;
             justify-content: flex-start;
             align-items: flex-start;
-            background-color: yellow;
+            // background-color: yellow;
             width: 100%;
-            height: 30%;
+            // height: 30%;
             margin-bottom: 2%;
         }
         .employment-record {
@@ -166,9 +176,9 @@ const ContactInfoData: Ref<ContactInfoData> = ref({
             flex-direction: column;
             justify-content: flex-start;
             align-items: flex-start;
-            background-color: red;
+            // background-color: red;
             width: 100%;
-            height: 30%;
+            // height: 30%;
             margin-bottom: 2%;
         }
         .research-focus {
@@ -176,9 +186,9 @@ const ContactInfoData: Ref<ContactInfoData> = ref({
             flex-direction: column;
             justify-content: flex-start;
             align-items: flex-start;
-            background-color: purple;
+            // background-color: purple;
             width: 100%;
-            height: 30%;
+            // height: 30%;
         }
     }
 }
