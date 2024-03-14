@@ -89,7 +89,7 @@
                     <h1 class="title">News</h1>
                     <n-scrollbar trigger="none">
                         <ul>
-                            <li v-for="(record, index) in otherInfo" :key="index">
+                            <li style="font-size: 24px;" v-for="(record, index) in otherInfo" :key="index">
                                 {{ record }}
                             </li>
                         </ul>

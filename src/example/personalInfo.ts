@@ -1,17 +1,15 @@
 import type { ContactInfoData, PersonalInfoData } from '@/types/PersonalInfoData'
 
 export const samplePersonalInfoData: PersonalInfoData = {
-  name: 'John Doe',
-  coporation: 'Acme Corp',
-  location: 'New York, NY',
-  zip: 10001
+  name: 'Fang Yubo',
+  coporation: 'University of Tsukuba',
+  location: 'Tsukuba, Ibaraki, Japan'
 }
 
 export const sampleContactInfoData: ContactInfoData = {
-  email: 'johndoe@example.com',
-  phone: '+1 123-456-7890',
-  website: 'https://www.johndoe.com',
-  linkedin: 'https://www.linkedin.com/in/johndoe',
-  github: 'https://github.com/johndoe',
-  wechat: 'johndoe'
+  email: 'fyb0118@gmail.com',
+  phone: '+86 17649855751',
+  linkedin: 'https://www.linkedin.com/in/yubo-fang/',
+  github: 'https://github.com/bobbyfyb',
+  wechat: 'Bobbyfyb'
 }
