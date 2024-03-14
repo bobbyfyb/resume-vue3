@@ -31,7 +31,7 @@
                     </div>
                 </n-scrollbar>
             </div>
-            <div class="seperator"></div>
+            <div class="separator"></div>
             <div class="contact-info">
                 <n-scrollbar trigger="none">
                     <div
@@ -67,9 +67,64 @@
             </div>
         </div>
         <div class="resume-info">
-            <div class="education-record"></div>
-            <div class="employment-record"></div>
-            <div class="research-focus"></div>
+            <n-scrollbar trigger="none">
+                <div class="education-record">
+                    <h1 class="title">Education</h1>
+                        <div class="education-item" v-for="(record, index) in educationInfoData" :key="index">
+                            <div class="first-line">
+                                <div style="display: flex; flex-direction: row; align-items: center;">
+                                    <n-icon color="#caf0f8">
+                                        <building />
+                                    </n-icon>
+                                    <h2>{{ record.school }}</h2>
+                                </div>
+                                <div>{{ record.major }}</div>
+                            </div>
+                            <div class="second-line">
+                                <div>{{ record.degree }}</div>
+                                <div>{{ record.graduation }}</div>
+                            </div>
+                            <div class="separator"></div>
+                        </div>
+                </div>
+                <div class="employment-record">
+                    <h1 class="title">Employment</h1>
+                    <div class="employment-item" v-for="(record, index) in experienceInfoData" :key="index">
+                        <div class="first-line">
+                            <div style="display: flex; flex-direction: row; align-items: center;">
+                                <n-icon color="#caf0f8">
+                                    <building />
+                                </n-icon>
+                                <h2>{{ record.company }}</h2>
+                            </div>
+                            <div>{{ record.title }}</div>
+                        </div>
+                        <div class="second-line">
+                            <div>{{ record.location }}</div>
+                            <div>{{ record.period }}</div>
+                        </div>
+                        <div class="third-line">
+                            <div>{{ record.description }}</div>
+                        </div>
+                        <div class="separator"></div>
+                    </div>
+                </div>
+                <div class="research-record">
+                    <h1 class="title">Research</h1>
+                    <div class="research-item" v-for="(record, index) in researchInfoData" :key="index">
+                        <div class="first-line">
+                            <div>{{ record.title }}</div>
+                            <div>{{ record.publication }}</div>
+                        </div>
+                        <div class="second-line">
+                            <div>{{ record.authors }}</div>
+                            <a :href="record.link">{{ record.link }}</a>
+                        </div>
+                        <div class="separator">
+                        </div>
+                    </div>
+                </div>
+            </n-scrollbar>
         </div>
     </div>
 </template>
@@ -87,9 +142,9 @@ const personalInfoData: Ref<PersonalInfoData> = ref(samplePersonalInfoData);
 const contactInfoData: Ref<ContactInfoData> = ref(sampleContactInfoData);
 const resumeInfoData: Ref<ResumeInfoData> = ref(sampleResumeInfoData);
 
-const educationInfoData: Ref<EducationInfoData> = ref(resumeInfoData.value.educationInfo ?? {});
-const experienceInfoData: Ref<ExperienceInfoData> = ref(resumeInfoData.value.experienceInfo ?? {});
-const researchInfoData: Ref<ResearchInfoData> = ref(resumeInfoData.value.researchInfo ?? {});
+const educationInfoData: Ref<EducationInfoData[]> = ref(resumeInfoData.value.educationInfo ?? []);
+const experienceInfoData: Ref<ExperienceInfoData[]> = ref(resumeInfoData.value.experienceInfo ?? []);
+const researchInfoData: Ref<ResearchInfoData[]> = ref(resumeInfoData.value.researchInfo ?? []);
 
 
 </script>
@@ -125,17 +180,17 @@ const researchInfoData: Ref<ResearchInfoData> = ref(resumeInfoData.value.researc
             overflow: auto;
         }
         .info-item {
-                margin-bottom: 12px;
-                font-size: 16px;
-                font-family: 'PingFang-SC';
-                width: 90%;
-                display: flex;
-                flex-wrap: wrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                justify-content: space-between;
-            }
-        .seperator {
+            margin-bottom: 12px;
+            font-size: 16px;
+            font-family: 'PingFang-SC';
+            width: 90%;
+            display: flex;
+            flex-wrap: wrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            justify-content: space-between;
+        }
+        .separator {
             width: 100%;
             height: 2px;
             background-color: #caf0f8;
@@ -161,34 +216,86 @@ const researchInfoData: Ref<ResearchInfoData> = ref(resumeInfoData.value.researc
         width: 100%;
         height: 100%;
         margin-left: 2%;
+        overflow: auto;
+        padding-left: 32px;
+        padding-top: 8px;
+        .title {
+            font-size: 36px;
+            font-family: 'PingFang-SC';
+            margin-bottom: 16px;
+            font-weight: bold;
+            border-bottom-style: solid;
+        }
+        .first-line {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 16px;
+            h2 {
+                margin-left: 8px;
+            }
+        }
+        .second-line {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        .third-line {
+            font-style: italic;
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .separator {
+            width: 100%;
+            height: 2px;
+            background-color: #caf0f8;
+            margin-top: 8px;
+            margin-bottom: 8px;
+        }
         .education-record {
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
             align-items: flex-start;
-            // background-color: yellow;
             width: 100%;
-            // height: 30%;
+            height: 45%;
             margin-bottom: 2%;
+            .education-item {
+                display: flex;
+                flex-direction: column;
+                width: 90%;
+            }
         }
         .employment-record {
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
             align-items: flex-start;
-            // background-color: red;
             width: 100%;
-            // height: 30%;
+            height: 30%;
             margin-bottom: 2%;
+            .employment-item {
+                display: flex;
+                flex-direction: column;
+                width: 90%;
+            }
         }
-        .research-focus {
+        .research-record {
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
             align-items: flex-start;
-            // background-color: purple;
             width: 100%;
-            // height: 30%;
+            .research-item {
+                display: flex;
+                flex-direction: column;
+                width: 90%;
+            }
         }
     }
 }
@@ -207,6 +314,9 @@ const researchInfoData: Ref<ResearchInfoData> = ref(resumeInfoData.value.researc
             flex-direction: column;
             justify-content: flex-start;
             align-items: center;
+        }
+        .resume-info {
+            overflow: visible;
         }
     }
 }
