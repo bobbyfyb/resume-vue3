@@ -1,6 +1,9 @@
 import type { ResumeInfoData } from '@/types/ResumeInfoData'
 
 export const sampleResumeInfoData: ResumeInfoData = {
+  selfDescription:
+    'I am a software engineer with a passion for artificial intelligence and machine learning.',
+  otherInfo: ['I am a native English speaker.', 'I am a US citizen.'],
   educationInfo: [
     {
       school: 'Harvard University',

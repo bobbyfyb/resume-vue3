@@ -68,7 +68,41 @@
         </div>
         <div class="resume-info">
             <n-scrollbar trigger="none">
-                <div class="education-record">
+                <div class="description">
+                    <h1 class="title">Self Description</h1>
+                    <div class="description-content">{{ selfDescription }}</div>
+                    <div class="skills-info">
+                        <h1 style="font-size: 24px;">
+                            <n-icon color="#caf0f8">
+                                <skill-level />
+                            </n-icon>
+                            Skills
+                        </h1>
+                        <ul>
+                            <li v-for="(record, index) in skills" :key="index">
+                                <div style="font-size: 16px;">{{ record.category }}</div>
+                                <ul>
+                                    <li style="font-size: 16px;" v-for="(skill, index) in record.skills" :key="index">
+                                        {{ skill }}
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="separator"></div>
+                </div>
+                <div class="other-info">
+                    <h1 class="title">News</h1>
+                    <n-scrollbar trigger="none">
+                        <ul>
+                            <li v-for="(record, index) in otherInfo" :key="index">
+                                {{ record }}
+                            </li>
+                        </ul>
+                    </n-scrollbar>
+                    <div class="separator"></div>
+                </div>
+                <div class="education-record" v-if="educationInfoData.length > 0">
                     <h1 class="title">Education</h1>
                         <div class="education-item" v-for="(record, index) in educationInfoData" :key="index">
                             <div class="first-line">
@@ -87,7 +121,7 @@
                             <div class="separator"></div>
                         </div>
                 </div>
-                <div class="employment-record">
+                <div class="employment-record" v-if="experienceInfoData.length > 0">
                     <h1 class="title">Employment</h1>
                     <div class="employment-item" v-for="(record, index) in experienceInfoData" :key="index">
                         <div class="first-line">
@@ -109,7 +143,7 @@
                         <div class="separator"></div>
                     </div>
                 </div>
-                <div class="research-record">
+                <div class="research-record" v-if="researchInfoData.length > 0">
                     <h1 class="title">Research</h1>
                     <div class="research-item" v-for="(record, index) in researchInfoData" :key="index">
                         <div class="first-line">
@@ -130,22 +164,25 @@
 </template>
 
 <script setup lang="ts">
-import { NAvatar, NIcon, NScrollbar} from 'naive-ui';
-import { UserAvatarFilled, Building, Location, Email, PhoneApplication, LogoLinkedin, LogoGithub, LogoWechat } from '@vicons/carbon';
-import { ref, type Ref } from 'vue';
-import type { PersonalInfoData, ContactInfoData } from '@/types/PersonalInfoData';
-import { sampleContactInfoData, samplePersonalInfoData } from '@/example/personalInfo';
-import type { EducationInfoData, ExperienceInfoData, ResearchInfoData, ResumeInfoData } from '@/types/ResumeInfoData';
-import { sampleResumeInfoData } from '@/example/resumeInfo';
+    import { NAvatar, NIcon, NScrollbar} from 'naive-ui';
+    import { SkillLevel, UserAvatarFilled, Building, Location, Email, PhoneApplication, LogoLinkedin, LogoGithub, LogoWechat } from '@vicons/carbon';
+    import { ref, type Ref } from 'vue';
+    import type { PersonalInfoData, ContactInfoData } from '@/types/PersonalInfoData';
+    import { sampleContactInfoData, samplePersonalInfoData } from '@/example/personalInfo';
+    import type { EducationInfoData, ExperienceInfoData, ResearchInfoData, ResumeInfoData, SkillsInfoData } from '@/types/ResumeInfoData';
+    import { sampleResumeInfoData } from '@/example/resumeInfo';
 
-const personalInfoData: Ref<PersonalInfoData> = ref(samplePersonalInfoData);
-const contactInfoData: Ref<ContactInfoData> = ref(sampleContactInfoData);
-const resumeInfoData: Ref<ResumeInfoData> = ref(sampleResumeInfoData);
+    const personalInfoData: Ref<PersonalInfoData> = ref(samplePersonalInfoData);
+    const contactInfoData: Ref<ContactInfoData> = ref(sampleContactInfoData);
+    const resumeInfoData: Ref<ResumeInfoData> = ref(sampleResumeInfoData);
 
-const educationInfoData: Ref<EducationInfoData[]> = ref(resumeInfoData.value.educationInfo ?? []);
-const experienceInfoData: Ref<ExperienceInfoData[]> = ref(resumeInfoData.value.experienceInfo ?? []);
-const researchInfoData: Ref<ResearchInfoData[]> = ref(resumeInfoData.value.researchInfo ?? []);
+    const educationInfoData: Ref<EducationInfoData[]> = ref(resumeInfoData.value.educationInfo ?? []);
+    const experienceInfoData: Ref<ExperienceInfoData[]> = ref(resumeInfoData.value.experienceInfo ?? []);
+    const researchInfoData: Ref<ResearchInfoData[]> = ref(resumeInfoData.value.researchInfo ?? []);
 
+    const selfDescription: Ref<string> = ref(resumeInfoData.value.selfDescription ?? '');
+    const skills: Ref<SkillsInfoData[]> = ref(resumeInfoData.value.skillsInfo ?? []);
+    const otherInfo: Ref<string[]> = ref(resumeInfoData.value.otherInfo ?? []);
 
 </script>
 
@@ -256,6 +293,48 @@ const researchInfoData: Ref<ResearchInfoData[]> = ref(resumeInfoData.value.resea
             background-color: #caf0f8;
             margin-top: 8px;
             margin-bottom: 8px;
+        }
+        .description {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            width: 90%;
+            height: 50%;
+            .description-content {
+                font-size: 24px;
+                font-family: 'PingFang-SC';
+                width: 100%;
+                height: 45%;
+                overflow: auto;
+            }
+            .skills-info {
+                margin-top: 16px;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: flex-start;
+                width: 100%;
+                height: 45%;
+                ul {
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    justify-content: space-between;
+                    li {
+                        margin-right: 32px;
+                    }
+                }
+            }
+        }
+        .other-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            width: 90%;
+            height: 15%;
+            overflow: auto;
         }
         .education-record {
             display: flex;

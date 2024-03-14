@@ -1,4 +1,6 @@
 export interface ResumeInfoData {
+  selfDescription?: string
+  otherInfo?: string[]
   educationInfo?: EducationInfoData[] | null
   experienceInfo?: ExperienceInfoData[] | null
   skillsInfo?: SkillsInfoData[] | null
