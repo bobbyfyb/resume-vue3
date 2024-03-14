@@ -169,29 +169,23 @@ import {
     LogoGithub,
     LogoWechat
 } from '@vicons/carbon'
-import { ref, type Ref } from 'vue'
-import type { PersonalInfoData, ContactInfoData } from '@/types/PersonalInfoData'
-import { sampleContactInfoData, samplePersonalInfoData } from '@/example/personalInfo'
-import type {
-    EducationInfoData,
-    ExperienceInfoData,
-    ResearchInfoData,
-    ResumeInfoData,
-    SkillsInfoData
-} from '@/types/ResumeInfoData'
-import { sampleResumeInfoData } from '@/example/resumeInfo'
 
-const personalInfoData: Ref<PersonalInfoData> = ref(samplePersonalInfoData)
-const contactInfoData: Ref<ContactInfoData> = ref(sampleContactInfoData)
-const resumeInfoData: Ref<ResumeInfoData> = ref(sampleResumeInfoData)
+import { useResumeStore } from '@/stores/resume'
+import { storeToRefs } from 'pinia'
 
-const educationInfoData: Ref<EducationInfoData[]> = ref(resumeInfoData.value.educationInfo ?? [])
-const experienceInfoData: Ref<ExperienceInfoData[]> = ref(resumeInfoData.value.experienceInfo ?? [])
-const researchInfoData: Ref<ResearchInfoData[]> = ref(resumeInfoData.value.researchInfo ?? [])
+const resumeStore = useResumeStore()
 
-const selfDescription: Ref<string> = ref(resumeInfoData.value.selfDescription ?? '')
-const skills: Ref<SkillsInfoData[]> = ref(resumeInfoData.value.skillsInfo ?? [])
-const otherInfo: Ref<string[]> = ref(resumeInfoData.value.otherInfo ?? [])
+const {
+    personalInfoData,
+    contactInfoData,
+    educationInfoData,
+    experienceInfoData,
+    researchInfoData,
+    selfDescription,
+    skills,
+    otherInfo
+} = storeToRefs(resumeStore)
+
 </script>
 
 <style lang="less" scoped>
