@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import Resume from './components/Resume.vue'
+import Resume from './components/ResumeComponent.vue'
 </script>
 
 <style lang="less" scoped>
@@ -15,4 +15,4 @@ import Resume from './components/Resume.vue'
     justify-content: center;
     align-items: center;
 }
-</style>
+</style>./components/ResumeComponent.vue
